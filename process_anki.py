@@ -3,7 +3,7 @@
 process_anki.py
 
 Post-processes Anki TSV output from Gemini:
-  - Replaces {{word}} markers with underscores matching the word's letter count
+  - Replaces {{word}} markers with underscores, preserving spaces and punctuation
   - Validates exactly one tab per line (front\tback)
   - Reports any issues found
 
@@ -22,8 +22,8 @@ import sys
 
 
 def replace_markers(text: str) -> str:
-    """Replace {{word}} with underscores matching the word's letter count."""
-    return re.sub(r"\{\{(.+?)\}\}", lambda m: "_" * len(m.group(1)), text)
+    """Replace {{phrase}} with underscores, preserving spaces and punctuation."""
+    return re.sub(r"\{\{(.+?)\}\}", lambda m: re.sub(r"\w", "_", m.group(1)), text)
 
 
 def validate_line(line: str, line_num: int) -> list[str]:
