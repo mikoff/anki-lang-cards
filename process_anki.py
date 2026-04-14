@@ -50,6 +50,7 @@ def validate_line(line: str, line_num: int) -> list[str]:
 
 def process(input_text: str) -> tuple[str, list[str]]:
     """Process TSV text. Returns (processed_text, warnings)."""
+    input_text = input_text.replace(r"\t", "\t")
     lines = input_text.splitlines(keepends=True)
     all_warnings = []
 
